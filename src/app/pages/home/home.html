@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="field">
+    <label>Firma</label>
+    <ng-select
+      [items]="databases()"
+      bindLabel="name"
+      bindValue="value"
+      [(ngModel)]="selected"
+      placeholder="Firma">
+    </ng-select>
+  </div>
+
+  <div class="field">
+    <label>Zoradenie</label>
+    <ng-select
+      [items]="sortOptions"
+      bindLabel="name"
+      bindValue="value"
+      [(ngModel)]="selectedSort"
+      [clearable]="false">
+    </ng-select>
+  </div>
+  <div class="field">
+  <input
+    #fileInput
+    type="file"
+    style="display: none"
+    (change)="onFileSelected($event)">
+
+  <button
+    class="upload-btn"
+    [class.drag-over]="isDragOver"
+    [class.has-file]="selectedFile()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave()"
+    (drop)="onDrop($event)"
+    (click)="fileInput.click()">
+    <span class="icon">📁</span>
+    <span>{{ selectedFile() ? selectedFile()!.name : 'Nahrať súbor' }}</span>
+  </button>
+  </div>
+  <div class="field">
+  <button
+    class="submit-btn"
+    [disabled]="!selectedFile() || !selected"
+    (click)="onSubmit()">
+    Odoslať
+  </button>
+  </div>
+  <div class="field">
+    <button
+      class="shutdown-btn"
+      (click)="shutdown()">
+      Vypnúť
+    </button>
+  </div>
+</div>
